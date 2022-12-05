@@ -61,10 +61,10 @@ public class ShaBruteForce {
         while(true){
             String password = repeat('a', passwordLength);
             while(!allNine(password)){
+                System.out.println(password);
                 char carryChar = 'a';
                 int i = password.length()-1;
                 while (carryChar == 'a'){
-                    System.out.println(password);
                     carryChar= nextDigit(password.charAt(i));
                     StringBuffer temp = new StringBuffer(password);
                     temp.setCharAt(i--, carryChar);
@@ -96,7 +96,9 @@ public class ShaBruteForce {
         Scanner scan = new Scanner(System.in);
         String userPassword = scan.nextLine();
         String hashPassword = getSHA(userPassword);
-        System.out.println(" your password is  " + passwordCrack(hashPassword) + " your hash is " + hashPassword);
+        System.out.println("Your hash is  "+hashPassword + "\n type in your hash:  ");
+        String hashIn = scan.nextLine();
+        System.out.println(" your password is  " + passwordCrack(hashIn));
     }
 
 }

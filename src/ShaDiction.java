@@ -38,11 +38,13 @@ public class ShaDiction {
             Scanner fileScan = new Scanner(new File("C:/Users/100117043/OneDrive - Clear Creek ISD/PasswordCrackingBruteForce/src/million.txt"));
             String s = scan.next();
             String hash = toHexString(getSHA(s));
+            System.out.println(" your hash is  " + hash + "\n type in your hash:");
+            String hashIn = scan.next();
             boolean found = false;
             while (fileScan.hasNext()) {
                 String currentWord = fileScan.next();
                 String fileHash = toHexString(getSHA(currentWord));
-                if (fileHash.equals(hash)) {
+                if (fileHash.equals(hashIn)) {
                     System.out.println("SHA-256: \t" + fileHash + "\t\t Your password: " + currentWord);
                     found = true;
                 }

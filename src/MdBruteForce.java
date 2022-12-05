@@ -90,6 +90,8 @@ public static boolean allNine(String f) {
         Scanner scan = new Scanner(System.in);
         String userPassword = scan.nextLine();
         String hashPassword = getMd5(userPassword);
-        System.out.println(" your password is  " + passwordCrack(hashPassword) + " your hash is " + hashPassword);
+        System.out.println("Your hash is  "+hashPassword + "\n type in your hash:  ");
+        String hashIn = scan.nextLine();
+        System.out.println(" your password is  " + passwordCrack(hashIn));
     }
 }

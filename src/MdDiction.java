@@ -44,12 +44,14 @@ public class MdDiction {
             Scanner fileScan = new Scanner(new File("C:/Users/100117043/OneDrive - Clear Creek ISD/PasswordCrackingBruteForce/src/million.txt"));
             String s = scan.next();
             String hash = getMd5(s);
+            System.out.println(" your hash is  " + hash + "\n type in your hash:");
+            String hashIn = scan.next();
             boolean found = false;
             while (fileScan.hasNext()) {
                 String currentWord = fileScan.next();
                 String fileHash = getMd5(currentWord);
-                if (fileHash.equals(hash)) {
-                    System.out.println("MD5: \t" + fileHash + "\t\t Your password: " + currentWord);
+                if (fileHash.equals(hashIn)) {
+                    System.out.println(" Your password: " + currentWord);
                     found = true;
                 }
             }
