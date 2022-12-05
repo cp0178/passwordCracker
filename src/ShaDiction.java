@@ -1,0 +1,67 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
+import java.security.*;
+import java.math.*;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class ShaDiction {
+    public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
+        // Static getInstance method is called with hashing SHA
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+        // digest() method called
+        // to calculate message digest of an input
+        // and return array of byte
+        return md.digest(input.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public static String toHexString(byte[] hash) {
+        // Convert byte array into signum representation
+        BigInteger number = new BigInteger(1, hash);
+
+        // Convert message digest into hex value
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+
+        // Pad with leading zeros
+        while (hexString.length() < 64) {
+            hexString.insert(0, '0');
+        }
+
+        return hexString.toString();
+    }
+
+    public static void main(String args[]) {
+        try {
+            Scanner scan = new Scanner(System.in);
+            Scanner fileScan = new Scanner(new File("C:/Users/100117043/OneDrive - Clear Creek ISD/PasswordCrackingBruteForce/src/million.txt"));
+            String s = scan.next();
+            String hash = toHexString(getSHA(s));
+            boolean found = false;
+            while (fileScan.hasNext()) {
+                String currentWord = fileScan.next();
+                String fileHash = toHexString(getSHA(currentWord));
+                if (fileHash.equals(hash)) {
+                    System.out.println("SHA-256: \t" + fileHash + "\t\t Your password: " + currentWord);
+                    found = true;
+                }
+            }
+            if (!found) {
+                System.out.println("Password not found in list.");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e);
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println("No algorithm: " + e);
+        }
+    }
+}
+
+    // Driver code
+
+
+
+
+
+
