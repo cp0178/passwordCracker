@@ -12,7 +12,7 @@ public boolean findPassword(String p, String pswd, int length) {
 
     if (length == pswd.length()) {
         if (BCrypt.checkpw(pswd, p))
-            System.out.println(pswd);
+            System.out.println(" your password is  " + pswd);
         return BCrypt.checkpw(pswd, p);
 
     }

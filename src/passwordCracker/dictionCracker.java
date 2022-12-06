@@ -25,8 +25,6 @@ public dictionCracker() {
 	}
 	
 }
-//list is looped through
-//uses BCrypt checkpw function to check the hash
 public String checkPass(String hash){
 	String passHash = null;
 	boolean endLoop= false;
