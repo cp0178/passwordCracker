@@ -1,13 +1,10 @@
 package passwordCracker;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.math.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class ShaDiction {
@@ -40,79 +37,45 @@ public class ShaDiction {
         return hexString.toString();
     }
     
-    public void checkPass(String hashin){
+public String checkPass(String hashIn) {
     	
-    	InputStream in;
-		try {
-			
-			in = getClass().getResourceAsStream("million.txt");
-			
-		    Scanner fileScan  = new Scanner(in);
-		    boolean found = false;
-		    
-		    while (fileScan.hasNext()) {
-                String currentWord = fileScan.next();
-                String fileHash = toHexString(getSHA(currentWord));
-                if (fileHash.equals(hashin)) {
-                    System.out.println("SHA-256: \t" + fileHash + "\t\t Your password: " + currentWord);
-                    found = true;
-                }
-            }
-		    fileScan.close();
-            if (!found) {
-                System.out.println("Password not found in list.");
-            }
-            
-        } catch (NoSuchAlgorithmException e) {
-            System.out.println("No algorithm: " + e);
-        } catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-			
-
-		
-    	
+    	try {
+    		InputStream in;
+            // creating a scanner to have the user type in the plain text they want
+             // we hash the plaintext and store the password
+             // we parse through the txt file and has each password and compare it to the hash
+             // if the two hashes match each other then output the hash and plain password if not output password not in list
+             // ask user if they want to use bruteforcce instead
+             
+    		in = getClass().getResourceAsStream("million.txt");
+    		Scanner fileScan  = new Scanner(in);
+             
+             boolean found = false;
+             while (fileScan.hasNext()) {
+                 String currentWord = fileScan.next();
+                 String fileHash = toHexString(getSHA(currentWord));
+                 if (fileHash.equals(hashIn)) {
+                     
+                     found = true;
+                     fileScan.close();
+                     return currentWord;
+                 }
+             }
+             fileScan.close();
+             if (!found) {
+                 System.out.println("Password not found in list.");
+             }
+         }
+         catch (Exception e) {
+             System.out.println("File not found: " + e);
+         }
+    	return "";
     }
+   
 
-    public static void main(String args[]) {
-        	
-       
-        try {
-        	
-       		
-        	
-            Scanner scan = new Scanner(System.in);
-           
-            Scanner fileScan = new Scanner(new File("C:/Users/100117043/OneDrive - Clear Creek ISD/PasswordCrackingBruteForce/src/million.txt"));
-            String s = scan.next();
-            String hash = toHexString(getSHA(s));
-            System.out.println(" your hash is  " + hash + "\n type in your hash:");
-            String hashIn = scan.next();
-            boolean found = false;
-            while (fileScan.hasNext()) {
-                String currentWord = fileScan.next();
-                String fileHash = toHexString(getSHA(currentWord));
-                if (fileHash.equals(hashIn)) {
-                    System.out.println("SHA-256: \t" + fileHash + "\t\t Your password: " + currentWord);
-                    found = true;
-                }
-            }
-            if (!found) {
-                System.out.println("Password not found in list.");
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e);
-        } catch (NoSuchAlgorithmException e) {
-            System.out.println("No algorithm: " + e);
-        } catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
+    
 }
 
-    // Driver code
 
 
 

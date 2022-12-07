@@ -2,7 +2,7 @@ package passwordCracker;
 
 import java.util.Scanner;
 
-import org.mindrot.BCrypt;
+
 
 
 
@@ -11,50 +11,54 @@ public class passwordCrackerRunner {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 				
-		Scanner scan = new Scanner(System.in);
-        String userPassword = scan.nextLine();
+		
 		
 		dictionCracker a = new dictionCracker();
 		String hashed = "";
-				
+		//used to get the algorithm	
 		String alg = args[0];
 		
 		
-		
+		//used to choose diction or brute force
 		String bFOrD = "";
 		if(args.length> 1) {
 			bFOrD = args[1];
 		}
+		//takes the hash
+		hashed = args[2];
 		
+		//check for md5
         if (alg.equals("md5")) {
         	
         	if(bFOrD.equals("bF")) {
-        		MdBruteForce mdb = new  MdBruteForce();
-        		hashed = mdb.getMd5(userPassword);
-        		String hashIn = passwordCrackerRunner.setHash(scan, hashed);
-        		System.out.println(" your password is  " + mdb.passwordCrack(hashIn));
+        		//run brute force
+        		System.out.println(" your password is  " + MdBruteForce.passwordCrack(hashed));
+        		//run diction
         	}else if(bFOrD.equals("D")) {
+        		
+        		MdDiction mdDict = new MdDiction();
+        		System.out.println(" your password is  " + mdDict.checkPass(hashed));
         		
         	}
         } else if (alg.equals("sha256")) {
         	
         	if(bFOrD.equals("bF")) {
-        		//ShaBruteForce mdb = new  ShaBruteForce();
-        		hashed = ShaBruteForce.getSHA(userPassword);
-        		String hashIn = passwordCrackerRunner.setHash(scan, hashed);
-        		System.out.println(" your password is  " + ShaBruteForce.passwordCrack(hashIn));
+        		
+        		System.out.println(" your password is  " + ShaBruteForce.passwordCrack(hashed));
         	}else if(bFOrD.equals("D")) {
+        		
+        		ShaDiction shaDict = new ShaDiction();
+        		System.out.println(" your password is  " + shaDict.checkPass(hashed));
         		
         	}
         	
         	
 		} else if (alg.equals("bcrypt")) {
-			hashed= BCrypt.hashpw(userPassword, BCrypt.gensalt());
-			String hashIn = passwordCrackerRunner.setHash(scan, hashed);
+			
 			
 			if(bFOrD.equals("D")) {
 				
-				String b = a.checkPass(hashIn);
+				String b = a.checkPass(hashed);
 				System.out.println(" your password is  " + b);
 				
 			}else if(bFOrD.equals("bF")) {
@@ -62,7 +66,7 @@ public class passwordCrackerRunner {
 				bruteForceCracker c = new bruteForceCracker();
 				boolean d = false;
 				for(int i = 1; i<=7 && d== false; i++) {
-					d= c.findPassword(hashIn,"",i);
+					d= c.findPassword(hashed,"",i);
 					
 				}
 

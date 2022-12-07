@@ -3,7 +3,6 @@ package passwordCracker;
 import java.security.*;
 import java.math.*;
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class MdDiction {
@@ -34,42 +33,40 @@ public class MdDiction {
             throw new RuntimeException(e);
         }
     }
-
-    public static void main( String args []) {
-        try {
-           // creating a scanner to have the user type in the plain text they want
-            // we hash the plaintext and store the password
-            // we parse through the txt file and has each password and compare it to the hash
-            // if the two hashes match each other then output the hash and plain password if not output password not in list
-            // ask user if they want to use bruteforcce instead
-            Scanner scan = new Scanner(System.in);
-            Scanner fileScan = new Scanner(new File("C:/Users/100117043/OneDrive - Clear Creek ISD/PasswordCrackingBruteForce/src/million.txt"));
-            String s = scan.next();
-            String hash = getMd5(s);
-            System.out.println(" your hash is  " + hash + "\n type in your hash:");
-            String hashIn = scan.next();
-            boolean found = false;
-            while (fileScan.hasNext()) {
-                String currentWord = fileScan.next();
-                String fileHash = getMd5(currentWord);
-                if (fileHash.equals(hashIn)) {
-                    System.out.println(" Your password: " + currentWord);
-                    found = true;
-                }
-            }
-            if (!found) {
-                System.out.println("Password not found in list.");
-            }
-        }
-        catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e);
-        }
+    
+    public String checkPass(String hashIn) {
+    	
+    	try {
+    		InputStream in;
+            // creating a scanner to have the user type in the plain text they want
+             // we hash the plaintext and store the password
+             // we parse through the txt file and has each password and compare it to the hash
+             // if the two hashes match each other then output the hash and plain password if not output password not in list
+             // ask user if they want to use bruteforcce instead
+             
+    		in = getClass().getResourceAsStream("million.txt");
+    		Scanner fileScan  = new Scanner(in);
+             
+             boolean found = false;
+             while (fileScan.hasNext()) {
+                 String currentWord = fileScan.next();
+                 String fileHash = getMd5(currentWord);
+                 if (fileHash.equals(hashIn)) {
+                    
+                     found = true;
+                     fileScan.close();
+                     return currentWord;
+                 }
+             }
+             fileScan.close();
+             if (!found) {
+                 System.out.println("Password not found in list.");
+             }
+         }
+         catch (Exception e) {
+             System.out.println("File not found: " + e);
+         }
+    	return "";
     }
 
-    // Driver code
-
 }
-
-
-
-

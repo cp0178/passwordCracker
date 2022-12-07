@@ -9,7 +9,7 @@ import org.mindrot.BCrypt;
 
 public class dictionCracker {
 private	ArrayList<String> list = new ArrayList<String>();	
-//passwords are implemented into an ArrayList
+//password file is loaded into an ArrayList
 public dictionCracker() {
 	Scanner s;
 	try {
@@ -25,9 +25,11 @@ public dictionCracker() {
 	}
 	
 }
+//checks the hashed passed in with the passwords and the password file
 public String checkPass(String hash){
 	String passHash = null;
 	boolean endLoop= false;
+	//looping through the array comparing password hashes
 	for(int i = 0; i < list.size()&& endLoop == false;i++) {
 		if(BCrypt.checkpw(list.get(i), hash)) {
 			passHash = list.get(i); 

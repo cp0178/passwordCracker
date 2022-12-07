@@ -1,11 +1,11 @@
 package passwordCracker;
 
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.Scanner;
+
 
 public class ShaBruteForce {
 
@@ -94,13 +94,6 @@ public class ShaBruteForce {
         }
     }
 
-    public static void main (String args[]) {
-        Scanner scan = new Scanner(System.in);
-        String userPassword = scan.nextLine();
-        String hashPassword = getSHA(userPassword);
-        System.out.println("Your hash is  "+hashPassword + "\n type in your hash:  ");
-        String hashIn = scan.nextLine();
-        System.out.println(" your password is  " + passwordCrack(hashIn));
-    }
+
 
 }
