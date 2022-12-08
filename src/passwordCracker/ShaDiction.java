@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.math.*;
 import java.util.Scanner;
+// import java packages to use for my code
 
 public class ShaDiction {
 	
@@ -64,10 +65,12 @@ public String checkPass(String hashIn) {
              fileScan.close();
              if (!found) {
                  System.out.println("Password not found in list.");
+		     // This outputs that your password is not in the list
              }
          }
          catch (Exception e) {
              System.out.println("File not found: " + e);
+		 //This outputs that your file is not in the list
          }
     	return "";
     }
