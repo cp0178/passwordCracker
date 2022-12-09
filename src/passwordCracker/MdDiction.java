@@ -61,10 +61,12 @@ public class MdDiction {
              fileScan.close();
              if (!found) {
                  System.out.println("Password not found in list.");
+                 //checks to see if the is not password is the list 
              }
          }
          catch (Exception e) {
              System.out.println("File not found: " + e);
+             // tells you that the File placed has not been found 
          }
     	return "";
     }
