@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class ShaBruteForce {
 
     static String allChars = "@abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-// puts all the characters that you can use in the password
+
     public static String getSHA(String input) {
         try {
 
@@ -52,7 +52,7 @@ public class ShaBruteForce {
         for (int i = 0; i < f.length(); i++) {
             if (f.charAt(i) != '9') {
                 return false;
-// Checks to see if the string is all 9's 
+
             }
         }
         return true;
@@ -62,27 +62,23 @@ public class ShaBruteForce {
         int passwordLength = 1;
         while(true){
             String password = repeat('a', passwordLength);
-            // while a is in the beginning we use the repeat function
             while(!allNine(password)){
-                System.out.println(password);
-                char carryChar = '@';
+                //System.out.println(password);
+                char carryChar = 'a';
                 int i = password.length()-1;
-                while (carryChar == '@'){
+                while (carryChar == 'a'){
                     carryChar= nextDigit(password.charAt(i));
                     StringBuffer temp = new StringBuffer(password);
                     temp.setCharAt(i--, carryChar);
                     password = temp.toString();
-                    // This does every combination possible by using  carryChar to check if we need to increase string length
 
                 }
                 if (getSHA(password).equals(target)){
                     return password;
-                    // returns the cracked password 
                 }
 
             }
             passwordLength++;
-            // increase the length of the password to try to a diffrent combination
         }
     }
 
@@ -92,13 +88,12 @@ public class ShaBruteForce {
             int k = allChars.indexOf(c);
             k++;
             return allChars.charAt(k);
-            // Checks the next digit 
         }
         else{
             return 'a';
         }
     }
 
-
+    
 
 }

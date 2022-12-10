@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class MdBruteForce {
 
-	static String allChars = "@abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    static String allChars = "@abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     public static String getMd5(String input) {
         try {
 
@@ -49,7 +49,7 @@ public static boolean allNine(String f) {
     for (int i = 0; i < f.length(); i++) {
         if (f.charAt(i) != '9') {
             return false;
-// Checks to see if the string is all 9's
+
         }
     }
     return true;
@@ -59,39 +59,35 @@ public static boolean allNine(String f) {
         int passwordLength = 1;
         while(true){
             String password = repeat('a', passwordLength);
-		// while a is in the beginning we use the repeat function
             while(!allNine(password)){
+                //System.out.println(password);
                 char carryChar = '@';
                 int i = password.length()-1;
                 while (carryChar == '@'){
-                        System.out.println(password);
                     carryChar= nextDigit(password.charAt(i));
                     StringBuffer temp = new StringBuffer(password);
                     temp.setCharAt(i--, carryChar);
                     password = temp.toString();
-			// This does every combination possible by using  carryChar to check if we need to increase string length
 
                 }
                 if (getMd5(password).equals(target)){
                     return password;
-			// returns the cracked password
                 }
             }
             passwordLength++;
         }
     }
-// increase the length of the password to try to a diffrent combination
+
     static char nextDigit(char c){
         if( c != '0'){
             int k = allChars.indexOf(c);
             k++;
             return allChars.charAt(k);
-		// Checks the next digit 
         }
         else{
-            return 'a';
+            return '@';
         }
     }
-    
+
   
 }
